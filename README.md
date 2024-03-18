@@ -18,3 +18,5 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm start`   | Starts local dev server at `localhost:4321`  |
 | `pnpm build`   | Build your production site to `./dist/`      |
 | `pnpm preview` | Preview your build locally, before deploying |
+
+<a href="https://zeabur.com" target="_blank" rel="noreferrer"><img src="https://zeabur.com/deployed-on-zeabur-dark.svg" alt="Deploy on Zeabur"></a>

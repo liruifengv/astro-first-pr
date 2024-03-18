@@ -86,7 +86,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
         </ul>
       </nav>
     </header>
-    <main class="px-4 py-12 md:py-24 relative">
+    <main class="px-4 py-12 relative">
       <div class:list={['mx-auto', Astro.props.wide ? 'max-w-[60rem]' : 'max-w-[50rem]']}>
         <slot />
       </div>

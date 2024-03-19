@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 
 const title = 'Astro First PR';
 const description = 'Find your first PR for Astro!';
-const dataID = 'contributor-usernames';
 ---
 
 <Layout
@@ -46,7 +45,6 @@ const dataID = 'contributor-usernames';
             type="text"
             id="find-contributor"
             placeholder="GitHub username"
-            list={dataID}
             autocomplete="off"
             class="w-full input pl-10 text-white text-sm leading-4 placeholder:text-neutral-200"
           />
@@ -69,7 +67,6 @@ const dataID = 'contributor-usernames';
   const searchBox = document.getElementById('find-contributor') as HTMLInputElement;
   const resultDisplay = document.getElementById('result-display') as HTMLDivElement;
 
-
   type PRDetail = {
     title: string;
     url: string;
@@ -80,6 +77,14 @@ const dataID = 'contributor-usernames';
     status: string;
     number: number;
     repo: string;
+  }
+
+  function formatDate(date: string) {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
   }
 
   const findPRByUsername = async (username: string): Promise<PRDetail> => {
@@ -95,7 +100,7 @@ const dataID = 'contributor-usernames';
           title: pr.title,
           url: pr.html_url,
           repoUrl: pr.html_url.split('/pull/').shift(),
-          createdAt: pr.created_at,
+          createdAt: formatDate(pr.created_at),
           username: pr.user.login,
           avatar: pr.user.avatar_url,
           number: pr.number,
@@ -135,6 +140,17 @@ const dataID = 'contributor-usernames';
 
           const statusBgColor = PR.status === 'Merged' ? 'bg-[#8957e5]' : PR.status === 'Closed' ? 'bg-[#ff4d4f]' : 'bg-[#2db7f5]'
 
+          const shareText = `I found my first Astro PR at https://astro-first-pr.zeabur.app/. ${PR.createdAt} I sent a PR to ${PR.repo}. ${PR.url} `;
+          const shareButton = `
+          <a class="twitter-share-button flex gap-2 w-28 items-center rounded-full hover:bg-black bg-[#000] text-white px-6 py-2"
+          href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M 18.242188 2.25 L 21.554688 2.25 L 14.324219 10.507812 L 22.828125 21.75 L 16.171875 21.75 L 10.953125 14.933594 L 4.992188 21.75 L 1.679688 21.75 L 9.40625 12.914062 L 1.257812 2.25 L 8.082031 2.25 L 12.792969 8.480469 Z M 17.082031 19.773438 L 18.914062 19.773438 L 7.082031 4.125 L 5.113281 4.125 Z M 17.082031 19.773438 "/>
+          </svg>
+            Post
+          </a>
+          `
+
           const resultDom = `
           <div class="text-3xl">
             <a href="${PR.url}" target="__blank" class="hover:text-blue-600 text-balance break-all">
@@ -151,12 +167,15 @@ const dataID = 'contributor-usernames';
             </div>
             <div class="flex-col flex-1">
               <div>${PR.username} sent this pull request in ${PR.createdAt}</div>
-              <div class="inline-block mt-2 p-2 py-1 rounded-sm ${statusBgColor} text-white">${PR.status}</>
+              <div class="flex items-center mt-2 gap-2">
+                <div class="inline-block p-2 py-1 rounded-sm ${statusBgColor} text-white">${PR.status}
+               </div>
+                ${shareButton}
+                </div>
             </div>
           </div>
           `
           resultDisplay.innerHTML = resultDom;
-
         } catch (error: unknown) {
           throw new Error('Contributor not found!');
         }

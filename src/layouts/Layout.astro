@@ -56,6 +56,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImgURL} />
     <meta name="twitter:image:alt" content={ogImg.alt} />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6G9XPT2Z40"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6G9XPT2Z40');
+    </script>
   </head>
 
   <body class="min-h-full bg-neutral-700 text-neutral-200 flex flex-col noise-container">

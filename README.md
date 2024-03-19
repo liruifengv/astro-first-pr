@@ -19,4 +19,4 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm build`   | Build your production site to `./dist/`      |
 | `pnpm preview` | Preview your build locally, before deploying |
 
-[![Deployed on Zeabur](https://zeabur.com/deployed-on-zeabur-dark.svg)](https://zeabur.com?referralCode=liruifengv&utm_source=liruifengv)
+[![Deployed on Zeabur](https://zeabur.com/deployed-on-zeabur-dark.svg)](https://zeabur.com?referralCode=liruifengv&utm_source=liruifengv&utm_campaign=oss)
